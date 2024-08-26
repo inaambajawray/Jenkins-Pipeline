@@ -14,6 +14,18 @@ pipeline {
                 echo 'Running Unit and Integration Tests...'
                 echo 'Tools: Maven and JUnit'
             }
+            post {
+                success {
+                    mail to: "inaambajawray@gmail.com",
+                    subject: "Build Status Email",
+                    body: "Build was successful!"
+                }
+                failure {
+                    mail to: "inaambajawray@gmail.com",
+                    subject: "Build Status Email",
+                    body: "Build was not successful..."
+                }
+            }
         }
         
         stage('Code Analysis') {
@@ -27,6 +39,18 @@ pipeline {
             steps {
                 echo 'Performing Security Scan...'
                 echo 'Tool: OWASP Dependency-Check'
+            }
+            post {
+                success {
+                    mail to: "inaambajawray@gmail.com",
+                    subject: "Secrutiy Scan Status Email",
+                    body: "Security scan was successful!"
+                }
+                failure {
+                    mail to: "inaambajawray@gmail.com",
+                    subject: "Security Scan Status Email",
+                    body: "Security scan was not successful..."
+                }
             }
         }
         
