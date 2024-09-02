@@ -15,15 +15,28 @@ pipeline {
                 echo 'Tools: Maven and JUnit'
             }
             post {
-                always {
+                success {
                     emailext(
-                        subject: "Unit and Integration Tests - Build Status",
+                        to: "inaambajawray@gmail.com",
+                        subject: "Unit and Integration Tests - Build Successful",
                         body: """
+                        Build was successful!
                         Build status: ${currentBuild.currentResult}
-                        Check console output at: ${env.BUILD_URL}
+                        Check console output to see logs at: ${env.BUILD_URL}
                         """,
-                        attachmentsPattern: '**/build.log',
-                        recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                        attachmentsPattern: '**/build.log'
+                    )
+                }
+                failure {
+                    emailext(
+                        to: "inaambajawray@gmail.com",
+                        subject: "Unit and Integration Tests - Build Failed",
+                        body: """
+                        Build was not successful...
+                        Build status: ${currentBuild.currentResult}
+                        Check console output to see logs at: ${env.BUILD_URL}
+                        """,
+                        attachmentsPattern: '**/build.log'
                     )
                 }
             }
@@ -42,15 +55,28 @@ pipeline {
                 echo 'Tool: OWASP Dependency-Check'
             }
             post {
-                always {
+                success {
                     emailext(
-                        subject: "Security Scan Status",
+                        to: "inaambajawray@gmail.com",
+                        subject: "Security Scan - Successful",
                         body: """
+                        Security scan was successful!
                         Security scan status: ${currentBuild.currentResult}
-                        Check console output at: ${env.BUILD_URL}
+                        Check console output to see logs at: ${env.BUILD_URL}
                         """,
-                        attachmentsPattern: '**/build.log',
-                        recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                        attachmentsPattern: '**/build.log'
+                    )
+                }
+                failure {
+                    emailext(
+                        to: "inaambajawray@gmail.com",
+                        subject: "Security Scan - Failed",
+                        body: """
+                        Security scan was not successful...
+                        Security scan status: ${currentBuild.currentResult}
+                        Check console output to see logs at: ${env.BUILD_URL}
+                        """,
+                        attachmentsPattern: '**/build.log'
                     )
                 }
             }
