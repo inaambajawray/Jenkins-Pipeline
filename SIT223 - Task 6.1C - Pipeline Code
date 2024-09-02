@@ -15,15 +15,16 @@ pipeline {
                 echo 'Tools: Maven and JUnit'
             }
             post {
-                success {
-                    mail to: "inaambajawray@gmail.com",
-                    subject: "Build Status Email",
-                    body: "Build was successful!"
-                }
-                failure {
-                    mail to: "inaambajawray@gmail.com",
-                    subject: "Build Status Email",
-                    body: "Build was not successful..."
+                always {
+                    emailext(
+                        subject: "Unit and Integration Tests - Build Status",
+                        body: """
+                        Build status: ${currentBuild.currentResult}
+                        Check console output at: ${env.BUILD_URL}
+                        """,
+                        attachmentsPattern: '**/build.log',
+                        recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                    )
                 }
             }
         }
@@ -41,15 +42,16 @@ pipeline {
                 echo 'Tool: OWASP Dependency-Check'
             }
             post {
-                success {
-                    mail to: "inaambajawray@gmail.com",
-                    subject: "Secrutiy Scan Status Email",
-                    body: "Security scan was successful!"
-                }
-                failure {
-                    mail to: "inaambajawray@gmail.com",
-                    subject: "Security Scan Status Email",
-                    body: "Security scan was not successful..."
+                always {
+                    emailext(
+                        subject: "Security Scan Status",
+                        body: """
+                        Security scan status: ${currentBuild.currentResult}
+                        Check console output at: ${env.BUILD_URL}
+                        """,
+                        attachmentsPattern: '**/build.log',
+                        recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                    )
                 }
             }
         }
