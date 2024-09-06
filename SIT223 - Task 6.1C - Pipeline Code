@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Build') {
             steps {
@@ -18,8 +18,8 @@ pipeline {
                 success {
                     // Save the logs to a file for attachment
                     script {
-                        sh "echo 'Unit and Integration Test Logs:' > build_logs.txt"
-                        sh "cat ${env.WORKSPACE}/target/surefire-reports/*.txt >> build_logs.txt" // Example path, adjust to your actual log location
+                        sh "echo 'Unit and Integration Test Logs:' > ${env.WORKSPACE}/build_logs.txt"
+                        sh "cat ${env.WORKSPACE}/target/surefire-reports/*.txt >> ${env.WORKSPACE}/build_logs.txt" // Example path, adjust if necessary
                     }
                     emailext(
                         to: "inaambajawray@gmail.com",
@@ -27,14 +27,14 @@ pipeline {
                         body: """
                         Build status: ${currentBuild.currentResult}
                         """,
-                        attachmentsPattern: 'build_logs.txt'
+                        attachmentsPattern: '${env.WORKSPACE}/build_logs.txt'
                     )
                 }
                 failure {
                     // Save the logs to a file for attachment
                     script {
-                        sh "echo 'Unit and Integration Test Logs (Failure):' > build_logs.txt"
-                        sh "cat ${env.WORKSPACE}/target/surefire-reports/*.txt >> build_logs.txt"
+                        sh "echo 'Unit and Integration Test Logs (Failure):' > ${env.WORKSPACE}/build_logs.txt"
+                        sh "cat ${env.WORKSPACE}/target/surefire-reports/*.txt >> ${env.WORKSPACE}/build_logs.txt"
                     }
                     emailext(
                         to: "inaambajawray@gmail.com",
@@ -42,7 +42,7 @@ pipeline {
                         body: """
                         Build status: ${currentBuild.currentResult}
                         """,
-                        attachmentsPattern: 'build_logs.txt'
+                        attachmentsPattern: '${env.WORKSPACE}/build_logs.txt'
                     )
                 }
             }
@@ -64,8 +64,8 @@ pipeline {
                 success {
                     // Save the logs to a file for attachment
                     script {
-                        sh "echo 'Security Scan Logs:' > build_logs.txt"
-                        sh "cat ${env.WORKSPACE}/path_to_security_scan_logs.log >> build_logs.txt" // Adjust log path
+                        sh "echo 'Security Scan Logs:' > ${env.WORKSPACE}/security_scan_logs.txt"
+                        sh "cat ${env.WORKSPACE}/path_to_security_scan_logs.log >> ${env.WORKSPACE}/security_scan_logs.txt" // Adjust path if necessary
                     }
                     emailext(
                         to: "inaambajawray@gmail.com",
@@ -73,14 +73,14 @@ pipeline {
                         body: """
                         Security scan status: ${currentBuild.currentResult}
                         """,
-                        attachmentsPattern: 'build_logs.txt'
+                        attachmentsPattern: '${env.WORKSPACE}/security_scan_logs.txt'
                     )
                 }
                 failure {
                     // Save the logs to a file for attachment
                     script {
-                        sh "echo 'Security Scan Logs (Failure):' > build_logs.txt"
-                        sh "cat ${env.WORKSPACE}/path_to_security_scan_logs.log >> build_logs.txt"
+                        sh "echo 'Security Scan Logs (Failure):' > ${env.WORKSPACE}/security_scan_logs.txt"
+                        sh "cat ${env.WORKSPACE}/path_to_security_scan_logs.log >> ${env.WORKSPACE}/security_scan_logs.txt"
                     }
                     emailext(
                         to: "inaambajawray@gmail.com",
@@ -88,7 +88,7 @@ pipeline {
                         body: """
                         Security scan status: ${currentBuild.currentResult}
                         """,
-                        attachmentsPattern: 'build_logs.txt'
+                        attachmentsPattern: '${env.WORKSPACE}/security_scan_logs.txt'
                     )
                 }
             }
