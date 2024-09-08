@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the application... >> build_logs.txt'
+                echo 'Building the application... > build_logs.txt'
                 echo 'Tool: Maven >> build_logs.txt'
             }
         }
