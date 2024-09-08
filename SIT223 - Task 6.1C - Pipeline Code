@@ -4,15 +4,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the application...'
-                echo 'Tool: Maven'
+                echo 'Building the application... >> build_logs.txt'
+                echo 'Tool: Maven >> build_logs.txt'
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Running Unit and Integration Tests...'
-                echo 'Tools: Maven and JUnit'
+                echo 'Running Unit and Integration Tests... >> build_logs.txt'
+                echo 'Tools: Maven and JUnit >> build_logs.txt'
             }
             post {
                 success {
@@ -20,9 +20,9 @@ pipeline {
                         to: "inaambajawray@gmail.com",
                         subject: "Unit and Integration Tests - Build Successful",
                         body: """
-                        Build was successful!
                         Build status: ${currentBuild.currentResult}
-                        Check console output to see logs at: ${env.BUILD_URL}
+                        Check console output: ${env.BUILD_URL}
+                        Attached find the logs.
                         """,
                         attachmentsPattern: 'build_logs.txt'                       
                     )
@@ -32,9 +32,9 @@ pipeline {
                         to: "inaambajawray@gmail.com",
                         subject: "Unit and Integration Tests - Build Failed",
                         body: """
-                        Build was not successful...
                         Build status: ${currentBuild.currentResult}
                         Check console output to see logs at: ${env.BUILD_URL}
+                        Attached find the logs.
                         """,
                         attachmentsPattern: 'build_logs.txt'
                     )
@@ -44,15 +44,15 @@ pipeline {
         
         stage('Code Analysis') {
             steps {
-                echo 'Performing Code Analysis...'
-                echo 'Tool: SonarQube'
+                echo 'Performing Code Analysis... >> build_logs.txt'
+                echo 'Tool: SonarQube >> build_logs.txt'
             }
         }
         
         stage('Security Scan') {
             steps {
-                echo 'Performing Security Scan...'
-                echo 'Tool: OWASP Dependency-Check'
+                echo 'Performing Security Scan... >> build_logs.txt'
+                echo 'Tool: OWASP Dependency-Check >> build_logs.txt'
             }
             post {
                 success {
@@ -60,9 +60,9 @@ pipeline {
                         to: "inaambajawray@gmail.com",
                         subject: "Security Scan - Successful",
                         body: """
-                        Security scan was successful!
                         Security scan status: ${currentBuild.currentResult}
-                        Check console output to see logs at: ${env.BUILD_URL}
+                        Check console output: ${env.BUILD_URL}
+                        Attached find the logs.
                         """,
                         attachmentsPattern: 'build_logs.txt'
                     )
@@ -74,7 +74,8 @@ pipeline {
                         body: """
                         Security scan was not successful...
                         Security scan status: ${currentBuild.currentResult}
-                        Check console output to see logs at: ${env.BUILD_URL}
+                        Check console output: ${env.BUILD_URL}
+                        Attached find the logs.
                         """,
                         attachmentsPattern: 'build_logs.txt'
                     )
@@ -84,20 +85,20 @@ pipeline {
         
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to Staging Server AWS...'
+                echo 'Deploying to Staging Server AWS... >> build_logs.txt'
             }
         }
         
         stage('Integration Tests on Staging') {
             steps {
-                echo 'Running Integration Tests on Staging...'
+                echo 'Running Integration Tests on Staging... >> build_logs.txt'
                 echo 'Tool: Maven'
             }
         }
         
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying to Production Server AWS...'
+                echo 'Deploying to Production Server AWS... >> build_logs.txt'
             }
         }
     }
