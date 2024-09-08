@@ -4,15 +4,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the application... > build_logs.txt'
-                echo 'Tool: Maven >> build_logs.txt'
+                sh echo 'Building the application... > build_logs.txt'
+                sh echo 'Tool: Maven >> build_logs.txt'
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Running Unit and Integration Tests... >> build_logs.txt'
-                echo 'Tools: Maven and JUnit >> build_logs.txt'
+                sh echo 'Running Unit and Integration Tests... > build_logs.txt'
+                sh echo 'Tools: Maven and JUnit >> build_logs.txt'
             }
             post {
                 success {
@@ -44,15 +44,15 @@ pipeline {
         
         stage('Code Analysis') {
             steps {
-                echo 'Performing Code Analysis... >> build_logs.txt'
-                echo 'Tool: SonarQube >> build_logs.txt'
+                sh echo 'Performing Code Analysis... >> build_logs.txt'
+                sh echo 'Tool: SonarQube >> build_logs.txt'
             }
         }
         
         stage('Security Scan') {
             steps {
-                echo 'Performing Security Scan... >> build_logs.txt'
-                echo 'Tool: OWASP Dependency-Check >> build_logs.txt'
+                sh echo 'Performing Security Scan... >> build_logs.txt'
+                sh echo 'Tool: OWASP Dependency-Check >> build_logs.txt'
             }
             post {
                 success {
@@ -85,20 +85,20 @@ pipeline {
         
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to Staging Server AWS... >> build_logs.txt'
+                sh echo 'Deploying to Staging Server AWS... >> build_logs.txt'
             }
         }
         
         stage('Integration Tests on Staging') {
             steps {
-                echo 'Running Integration Tests on Staging... >> build_logs.txt'
-                echo 'Tool: Maven'
+                sh echo 'Running Integration Tests on Staging... >> build_logs.txt'
+                sh echo 'Tool: Maven'
             }
         }
         
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying to Production Server AWS... >> build_logs.txt'
+                sh echo 'Deploying to Production Server AWS... >> build_logs.txt'
             }
         }
     }
