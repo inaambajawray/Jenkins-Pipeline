@@ -22,9 +22,7 @@ pipeline {
                         body: """
                         Build was successful!
                         Build status: ${currentBuild.currentResult}
-                        Check console output to see logs at: ${env.BUILD_URL}
-                        """,
-                        attachmentsPattern: '**/build.log'
+                       
                     )
                 }
                 failure {
@@ -34,9 +32,7 @@ pipeline {
                         body: """
                         Build was not successful...
                         Build status: ${currentBuild.currentResult}
-                        Check console output to see logs at: ${env.BUILD_URL}
-                        """,
-                        attachmentsPattern: '**/build.log'
+
                     )
                 }
             }
@@ -62,9 +58,7 @@ pipeline {
                         body: """
                         Security scan was successful!
                         Security scan status: ${currentBuild.currentResult}
-                        Check console output to see logs at: ${env.BUILD_URL}
-                        """,
-                        attachmentsPattern: '**/build.log'
+                        
                     )
                 }
                 failure {
@@ -74,9 +68,7 @@ pipeline {
                         body: """
                         Security scan was not successful...
                         Security scan status: ${currentBuild.currentResult}
-                        Check console output to see logs at: ${env.BUILD_URL}
-                        """,
-                        attachmentsPattern: '**/build.log'
+                       
                     )
                 }
             }
