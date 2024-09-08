@@ -23,7 +23,7 @@ pipeline {
                         Build was successful!
                         Build status: ${currentBuild.currentResult}
                         """,
-                        attachmentsPattern: '**/build.log'                       
+                        attachmentsPattern: 'build.log'                       
                     )
                 }
                 failure {
@@ -34,7 +34,7 @@ pipeline {
                         Build was not successful...
                         Build status: ${currentBuild.currentResult}
                         """,
-                        attachmentsPattern: '**/build.log'
+                        attachmentsPattern: 'build.log'
                     )
                 }
             }
@@ -61,7 +61,7 @@ pipeline {
                         Security scan was successful!
                         Security scan status: ${currentBuild.currentResult}
                         """,
-                        attachmentsPattern: '**/build.log'
+                        attachmentsPattern: 'build.log'
                     )
                 }
                 failure {
@@ -72,7 +72,7 @@ pipeline {
                         Security scan was not successful...
                         Security scan status: ${currentBuild.currentResult}
                         """,
-                        attachmentsPattern: '**/build.log'
+                        attachmentsPattern: 'build.log'
                     )
                 }
             }
